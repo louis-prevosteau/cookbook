@@ -5,4 +5,5 @@ export class CreateRecipeDto {
   readonly category: string;
   readonly duration: string;
   readonly tip: string;
+  readonly user: string;
 }

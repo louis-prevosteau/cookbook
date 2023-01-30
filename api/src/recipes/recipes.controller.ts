@@ -13,6 +13,7 @@ import { RecipesService } from './recipes.service';
 import { CreateRecipeDto } from './dto/create-recipe.dto';
 import { UpdateRecipeDto } from './dto/update-recipe.dto';
 import { AuthGuard } from '@nestjs/passport';
+import { User } from 'src/user/user.decorator';
 
 @Controller('recipes')
 export class RecipesController {
@@ -20,26 +21,33 @@ export class RecipesController {
 
   @UseGuards(AuthGuard('jwt'))
   @Post()
-  create(@Body() createRecipeDto: CreateRecipeDto) {
-    return this.recipesService.create(createRecipeDto);
+  async create(@Body() createRecipeDto: CreateRecipeDto, @User() user) {
+    return (
+      await this.recipesService.create({ ...createRecipeDto, user: user._id })
+    ).populate('category user');
   }
 
   @Get()
   findAll(@Query('category') category) {
     return this.recipesService
       .findAll(category ? { category } : {})
-      .populate('category');
+      .populate('category user');
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.recipesService.findOne({ _id: id }).populate('category');
+    return this.recipesService.findOne({ _id: id }).populate('category user');
   }
 
   @UseGuards(AuthGuard('jwt'))
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateRecipeDto: UpdateRecipeDto) {
-    return this.recipesService.update({ _id: id }, updateRecipeDto);
+  async update(
+    @Param('id') id: string,
+    @Body() updateRecipeDto: UpdateRecipeDto,
+  ) {
+    return await this.recipesService
+      .update({ _id: id }, updateRecipeDto)
+      .populate('category user');
   }
 
   @UseGuards(AuthGuard('jwt'))
