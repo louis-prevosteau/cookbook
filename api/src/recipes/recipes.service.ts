@@ -11,23 +11,39 @@ export class RecipesService {
     @InjectModel(Recipe.name)
     private readonly recipeModel: Model<RecipeDocument>,
   ) {}
-  create(createRecipeDto: CreateRecipeDto) {
-    return this.recipeModel.create(createRecipeDto);
+  async create(createRecipeDto: CreateRecipeDto) {
+    return await (
+      await this.recipeModel.create(createRecipeDto)
+    ).populate('category user');
   }
 
   findAll(filter = {}) {
-    return this.recipeModel.find(filter);
+    return this.recipeModel.find(filter).populate('category user');
   }
 
   findOne(filter) {
-    return this.recipeModel.findOne(filter);
+    return this.recipeModel.findOne(filter).populate('category user');
   }
 
   update(filter, updateRecipeDto: UpdateRecipeDto) {
-    return this.recipeModel.findOneAndUpdate(filter, updateRecipeDto);
+    return this.recipeModel
+      .findOneAndUpdate(filter, updateRecipeDto)
+      .populate('category user');
   }
 
   remove(filter) {
     return this.recipeModel.findOneAndDelete(filter);
+  }
+
+  like(id, user) {
+    return this.recipeModel
+      .findOneAndUpdate({ _id: id }, { $push: { likes: user._id } })
+      .populate('category user');
+  }
+
+  unlike(id, user) {
+    return this.recipeModel
+      .findOneAndUpdate({ _id: id }, { $pull: { likes: user._id } })
+      .populate('category user');
   }
 }

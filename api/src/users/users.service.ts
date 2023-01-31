@@ -30,4 +30,18 @@ export class UsersService {
   remove(filter) {
     return this.userModel.findOneAndDelete(filter);
   }
+
+  like(id, user) {
+    return this.userModel.findOneAndUpdate(
+      { _id: user._id },
+      { $push: { likes: id } },
+    );
+  }
+
+  unlike(id, user) {
+    return this.userModel.findOneAndUpdate(
+      { _id: user._id },
+      { $pull: { likes: id } },
+    );
+  }
 }
