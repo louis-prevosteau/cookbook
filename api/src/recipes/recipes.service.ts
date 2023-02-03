@@ -12,23 +12,28 @@ export class RecipesService {
     private readonly recipeModel: Model<RecipeDocument>,
   ) {}
   async create(createRecipeDto: CreateRecipeDto) {
-    return await (
-      await this.recipeModel.create(createRecipeDto)
-    ).populate('category user');
+    const recipe = await this.recipeModel.create(createRecipeDto);
+    return await recipe.populate('category user', '-password');
   }
 
   findAll(filter = {}) {
-    return this.recipeModel.find(filter).populate('category user');
+    return this.recipeModel
+      .find(filter)
+      .populate('category')
+      .populate('user', '-password');
   }
 
   findOne(filter) {
-    return this.recipeModel.findOne(filter).populate('category user');
+    return this.recipeModel
+      .findOne(filter)
+      .populate('category')
+      .populate('user', '-password');
   }
 
   update(filter, updateRecipeDto: UpdateRecipeDto) {
     return this.recipeModel
       .findOneAndUpdate(filter, updateRecipeDto)
-      .populate('category user');
+      .populate('category');
   }
 
   remove(filter) {
@@ -38,12 +43,14 @@ export class RecipesService {
   like(id, user) {
     return this.recipeModel
       .findOneAndUpdate({ _id: id }, { $push: { likes: user._id } })
-      .populate('category user');
+      .populate('category')
+      .populate('user', '-password');
   }
 
   unlike(id, user) {
     return this.recipeModel
       .findOneAndUpdate({ _id: id }, { $pull: { likes: user._id } })
-      .populate('category user');
+      .populate('category')
+      .populate('user', '-password');
   }
 }
