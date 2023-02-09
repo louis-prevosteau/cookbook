@@ -30,7 +30,11 @@ const Register = () => {
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
                         <TextField name='username' type="text" label={t('auth.fields.username')} required onChange={(e) => setState({ ...state, username: e.target.value })} fullWidth/>
+                    </Grid>
+                    <Grid item xs={12}>
                         <TextField name='email' type="text" label={t('auth.fields.email')} required onChange={(e) => setState({ ...state, email: e.target.value })} fullWidth/>
+                    </Grid>
+                    <Grid item xs={12}>
                         <TextField name='password' type="password" label={t('auth.fields.password')} required onChange={(e) => setState({ ...state, password: e.target.value })} fullWidth/>
                     </Grid>
                 </Grid>

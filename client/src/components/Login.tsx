@@ -27,7 +27,9 @@ const Login = () => {
             <Box component='form' onSubmit={onSubmit} sx={{ mt: 3 }}>
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
-                        <TextField name='email' type="text" label={t('auth.fields.email')} required onChange={(e) => setState({ ...state, email: e.target.value })} fullWidth/>
+                        <TextField name='email' type="text" label={t('auth.fields.email')} required onChange={(e) => setState({ ...state, email: e.target.value })} fullWidth/> 
+                    </Grid>
+                    <Grid item xs={12}>
                         <TextField name='password' type="password" label={t('auth.fields.password')} required onChange={(e) => setState({ ...state, password: e.target.value })} fullWidth/>
                     </Grid>
                 </Grid>
