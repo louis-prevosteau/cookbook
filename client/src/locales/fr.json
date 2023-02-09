@@ -1,0 +1,15 @@
+{
+    "auth": {
+        "login": {
+            "title": "Se connecter"
+        },
+        "register": {
+            "title": "S'inscrire"
+        },
+        "fields": {
+            "username": "Pseudo",
+            "email": "Email",
+            "password": "Mot de passe"
+        }
+    }
+}

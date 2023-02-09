@@ -1,26 +1,24 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import './i18n';
+import Auth from './pages/Auth';
+import Categories from './pages/Categories';
+import Home from './pages/Home';
+import Profile from './pages/Profile';
+import Recipe from './pages/Recipe';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<Home/>}/>
+        <Route path='/auth' element={<Auth/>}/>
+        <Route path='/categories' element={<Categories/>}/>
+        <Route path='/profile' element={<Profile/>}/>
+        <Route path='/:id' element={<Recipe/>}/>
+      </Routes>
+    </BrowserRouter>
   );
-}
+};
 
 export default App;
