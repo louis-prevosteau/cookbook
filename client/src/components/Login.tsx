@@ -2,6 +2,7 @@ import { Box, Typography, Grid, TextField, Button } from '@mui/material';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { login } from '../redux/actions';
 
 const Login = () => {
@@ -13,10 +14,11 @@ const Login = () => {
     );
     const dispatch = useDispatch<any>();
     const { t } = useTranslation();
+    const navigate = useNavigate()
 
     const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        dispatch(login(state));
+        dispatch(login(state, navigate));
     };
 
     return (
