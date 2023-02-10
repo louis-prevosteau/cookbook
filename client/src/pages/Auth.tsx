@@ -20,11 +20,11 @@ const Auth = () => {
 
     return (
         <Container component='main' maxWidth='xs'>
+            <ButtonGroup variant='contained'>
+                <Button disabled={!state.isLogin} onClick={onSwitchAuth}>{t('auth.register.title')}</Button>
+                <Button disabled={state.isLogin}  onClick={onSwitchAuth}>{t('auth.login.title')}</Button>
+            </ButtonGroup>
             <Paper elevation={5}>
-                <ButtonGroup variant='contained'>
-                    <Button onClick={onSwitchAuth}>{t('auth.register.title')}</Button>
-                    <Button onClick={onSwitchAuth}>{t('auth.login.title')}</Button>
-                </ButtonGroup>
                 {state.isLogin ? <Login/> : <Register/>}
             </Paper>
         </Container>

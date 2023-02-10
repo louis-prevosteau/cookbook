@@ -1,4 +1,10 @@
 {
+    "menu": {
+        "auth": "S'inscrire / Se connecter",
+        "book": "Recettes",
+        "profile": "Mon profile",
+        "logout": "Se déconnecter"
+    },
     "auth": {
         "login": {
             "title": "Se connecter"

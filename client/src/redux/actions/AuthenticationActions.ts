@@ -5,23 +5,25 @@ import { AUTH } from '../../constants/ActionsTypes';
 import { NavigateFunction } from 'react-router-dom';
 
 export const register = (registerData: RegisterDto, navigate: NavigateFunction) => async (dispatch: Dispatch) => {
-    const { data } = await api.register(registerData);
-    dispatch(
+    const { data, status } = await api.register(registerData);
+    if (status === 200 || status === 201) {
+        navigate('/');
+        dispatch(
         {
             type: AUTH,
-            paylaod: data
-        }
-    );
-    navigate('/');
+            payload: data
+        });
+    }
 };
 
 export const login = (loginData: LoginDto, navigate: NavigateFunction) => async (dispatch: Dispatch) => {
-    const { data } = await api.login(loginData);
-    dispatch(
+    const { data, status } = await api.login(loginData);
+    if (status === 200 || status === 201) {
+        navigate('/');
+        dispatch(
         {
             type: AUTH,
-            paylaod: data
-        }
-    );
-    navigate('/');
+            payload: data
+        });
+    }
 };
