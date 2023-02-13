@@ -1,4 +1,8 @@
 {
+    "common": {
+        "cancel": "Annuler",
+        "submit": "Enregistrer"
+    },
     "menu": {
         "auth": "S'inscrire / Se connecter",
         "book": "Recettes",
@@ -17,5 +21,22 @@
             "email": "Email",
             "password": "Mot de passe"
         }
+    },
+    "categories": {
+        "title": "Catégories",
+        "create": {
+            "title": "Créer une catégorie"
+        },
+        "update": {
+            "title": "Modifier {{category}}"
+        },
+        "delete": {
+            "title": "Supprimer {{category}}",
+            "body": "Êtes vous sûr de supprimer {{category}} ? La suppression entrainera la suppression automatique des recettes liées à cette catégorie."
+        },
+        "fields": {
+            "name": "Nom"
+        }
+
     }
 }

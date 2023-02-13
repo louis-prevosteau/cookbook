@@ -1,10 +1,10 @@
-import { Dispatch } from 'redux';
+import { Dispatch } from '@reduxjs/toolkit';
 import * as api from '../../api';
-import { LoginDto, RegisterDto } from '../../dto';
+import { LoginModel, RegisterModel } from '../../models';
 import { AUTH } from '../../constants/ActionsTypes';
 import { NavigateFunction } from 'react-router-dom';
 
-export const register = (registerData: RegisterDto, navigate: NavigateFunction) => async (dispatch: Dispatch) => {
+export const register = (registerData: RegisterModel, navigate: NavigateFunction) => async (dispatch: Dispatch) => {
     const { data, status } = await api.register(registerData);
     if (status === 200 || status === 201) {
         navigate('/');
@@ -16,7 +16,7 @@ export const register = (registerData: RegisterDto, navigate: NavigateFunction) 
     }
 };
 
-export const login = (loginData: LoginDto, navigate: NavigateFunction) => async (dispatch: Dispatch) => {
+export const login = (loginData: LoginModel, navigate: NavigateFunction) => async (dispatch: Dispatch) => {
     const { data, status } = await api.login(loginData);
     if (status === 200 || status === 201) {
         navigate('/');
