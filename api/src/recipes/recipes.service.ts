@@ -20,14 +20,16 @@ export class RecipesService {
     return this.recipeModel
       .find(filter)
       .populate('category')
-      .populate('user', '-password');
+      .populate('user', '-password')
+      .populate('likes', '-password');
   }
 
   findOne(filter) {
     return this.recipeModel
       .findOne(filter)
       .populate('category')
-      .populate('user', '-password');
+      .populate('user', '-password')
+      .populate('likes', '-password');
   }
 
   update(filter, updateRecipeDto: UpdateRecipeDto) {

@@ -20,7 +20,7 @@ export class UsersService {
   }
 
   findOne(filter) {
-    return this.userModel.findOne(filter);
+    return this.userModel.findOne(filter).populate('likes');
   }
 
   update(filter, updateUserDto: UpdateUserDto) {

@@ -1,4 +1,4 @@
-export class CategoryModel {
-    readonly _id?: string;
-    readonly name!: string;
+export interface CategoryModel {
+    _id?: string;
+    name?: string;
 };

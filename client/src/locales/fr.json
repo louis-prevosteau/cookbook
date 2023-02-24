@@ -38,5 +38,25 @@
             "name": "Nom"
         }
 
+    },
+    "home": {
+        "filters": {
+            "byCategory" : {
+                "title": "Par catégorie"
+            }
+        }
+    },
+    "recipes": {
+        "create": {
+            "title": "Ajouter une recette"
+        },
+        "fields": {
+            "name": "Nom",
+            "image": "Image",
+            "body": "Etapes",
+            "category": "Catégorie",
+            "duration": "Temps",
+            "tip": "Astuce"
+        }
     }
 }

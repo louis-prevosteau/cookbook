@@ -9,7 +9,7 @@ const Categories = () => {
     const { t } = useTranslation();
 
     return (
-        <Container  maxWidth='sm'>
+        <Container maxWidth='sm'>
             <Typography component={'h2'} sx={{ textAlign: 'center', marginTop: 10 }}>{t('categories.title')}</Typography>
             <CategoryList/>
             <CreateCategoryDialog/>
