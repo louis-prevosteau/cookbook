@@ -32,7 +32,7 @@ export class AuthController {
       ),
     });
     const { token } = this.authService.login(user);
-    return token;
+    return { user, token };
   }
 
   @Post('login')
@@ -41,6 +41,6 @@ export class AuthController {
     const user = await this.authService.validateUser(loginDto);
     if (!user) throw new HttpException('Unknown user', HttpStatus.BAD_REQUEST);
     const { token } = this.authService.login(user);
-    return token;
+    return { user, token };
   }
 }

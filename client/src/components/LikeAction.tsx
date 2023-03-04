@@ -1,45 +1,39 @@
 import { Favorite, FavoriteBorder } from '@mui/icons-material';
 import { Grid, IconButton, Typography } from '@mui/material';
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { RecipeModel } from '../models';
-import { getProfile, likeRecipe, unlikeRecipe } from '../redux/actions';
-import { RootState } from '../redux/store';
+import { likeRecipe, unlikeRecipe } from '../redux/actions';
 
 const LikeAction = ({ recipe }: { recipe: RecipeModel }) => {
 
     const [state, setState] = useState(
         {
-            like: false
+            likes: recipe.likes
         }
     );
-    const { profile } = useSelector((state: RootState) => state);
-    const user = localStorage.getItem('token');
     const dispatch = useDispatch<any>();
-
-    useEffect(() => {
-        dispatch(getProfile());
-        if (recipe.likes?.includes(profile)) setState({ ...state, like: true });
-        else setState({ ...state, like: false });
-    }, [recipe.likes, state.like]);
+    const { user } = JSON.parse(localStorage.getItem('profile') as string );
 
     const onLike = () => {
-        dispatch(likeRecipe(recipe._id!));
+        dispatch(likeRecipe(recipe._id as string));
+        setState({ ...state, likes: [...state.likes as [], user._id] });
     };
 
     const onUnlike = () => {
-        dispatch(unlikeRecipe(recipe._id!));
+        dispatch(unlikeRecipe(recipe._id as string));
+        setState({ ...state, likes: state.likes?.filter((id) => id !== user._id) });
     };
 
     return (
         <Grid container>
             <Grid item>
-                <IconButton onClick={state.like ? onUnlike : onLike}>
-                    {state.like ? <Favorite/> : <FavoriteBorder/>}
+                <IconButton onClick={state.likes?.find((like) => like === user._id) ? onUnlike : onLike}>
+                    {state.likes?.find((like) => like === user._id) ? <Favorite/> : <FavoriteBorder/>}
                 </IconButton>
             </Grid>
             <Grid item>
-                <Typography>{recipe.likes?.length}</Typography>
+                <Typography>{state.likes?.length}</Typography>
             </Grid>
         </Grid>
     );

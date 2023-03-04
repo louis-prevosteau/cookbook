@@ -17,7 +17,7 @@ const BottomMenu = () => {
                 <Tooltip title={t('menu.book')} placement='top' arrow>
                     <BottomNavigationAction onClick={() => navigate('/')} icon={<MenuBook/>}/>
                 </Tooltip>
-                {localStorage.getItem('token') ? (
+                {localStorage.getItem('profile') ? (
                     <>
                         <Tooltip title={t('menu.profile')} placement='top' arrow>
                             <BottomNavigationAction onClick={() => navigate('/profile')} icon={<AccountCircle/>}/>

@@ -4,7 +4,7 @@ import { CategoryModel, LoginModel, UserModel, RegisterModel, IngredientModel, R
 const api = axios.create({ baseURL: process.env.REACT_APP_API_URL });
 
 api.interceptors.request.use((req) => {
-    if (localStorage.getItem('token')) req.headers.Authorization = `Bearer ${localStorage.getItem('token')}`;
+    if (localStorage.getItem('profile')) req.headers.Authorization = `Bearer ${JSON.parse(localStorage.getItem('profile') as string).token}`;
     return req;
 });
 
