@@ -14,10 +14,14 @@ import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 import { RolesGuard } from '../roles/roles.guard';
 import { Role, Roles } from 'src/roles/roles.decorator';
+import { RecipesService } from 'src/recipes/recipes.service';
 
 @Controller('categories')
 export class CategoriesController {
-  constructor(private readonly categoriesService: CategoriesService) {}
+  constructor(
+    private readonly categoriesService: CategoriesService,
+    private readonly recipesService: RecipesService,
+  ) {}
 
   @UseGuards(AuthGuard('jwt'), RolesGuard)
   @Roles(Role.Admin)
@@ -44,7 +48,8 @@ export class CategoriesController {
   @UseGuards(AuthGuard('jwt'), RolesGuard)
   @Roles(Role.Admin)
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  async remove(@Param('id') id: string) {
+    await this.recipesService.removeAll({ category: id });
     return this.categoriesService.remove({ _id: id });
   }
 }

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { CategoryModel, LoginModel, UserModel, RegisterModel, IngredientModel, RecipeModel } from "../models";
+import { CategoryModel, LoginModel, UserModel, RegisterModel, CreateIngredientModel, UpdateIngredientModel, CreateRecipeModel } from "../models";
 
 const api = axios.create({ baseURL: process.env.REACT_APP_API_URL });
 
@@ -20,14 +20,14 @@ export const getProfile = () => api.get('users/profile');
 export const updateProfile = (data: UserModel) => api.patch('users/profile', data);
 
 export const getIngredients = (recipe: string) => api.get(`ingredients/${recipe}`);
-export const createIngredient = (data: IngredientModel) => api.post('ingredients', data);
-export const updateIngredient = (id: string, data: IngredientModel) => api.patch(`ingredients/${id}`, data);
+export const createIngredient = (data: CreateIngredientModel) => api.post('ingredients', data);
+export const updateIngredient = (id: string, data: UpdateIngredientModel) => api.patch(`ingredients/${id}`, data);
 export const deleteIngredient = (id: string) => api.delete(`ingredients/${id}`);
 
 export const getRecipes = (category: string) => api.get(category !== '' ? `recipes?category=${category}` : 'recipes');
 export const getRecipe = (id: string) => api.get(`recipes/${id}`);
-export const createRecipe = (data: RecipeModel) => api.post('recipes', data);
-export const updateRecipe = (id: string, data: RecipeModel) => api.patch(`recipes/${id}`, data);
+export const createRecipe = (data: CreateRecipeModel) => api.post('recipes', data);
+export const updateRecipe = (id: string, data: CreateRecipeModel) => api.patch(`recipes/${id}`, data);
 export const deleteRecipe = (id: string) => api.delete(`recipes/${id}`);
 export const likeRecipe = (id: string) => api.patch(`recipes/${id}/like`);
 export const unlikeRecipe = (id: string) => api.patch(`recipes/${id}/unlike`);

@@ -30,4 +30,8 @@ export class IngredientsService {
   remove(filter) {
     return this.ingredientModel.findOneAndDelete(filter);
   }
+
+  removeAll(filter) {
+    return this.ingredientModel.deleteMany(filter);
+  }
 }

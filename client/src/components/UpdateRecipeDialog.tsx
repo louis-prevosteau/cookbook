@@ -1,25 +1,28 @@
-import { Add } from '@mui/icons-material';
+import { Edit } from '@mui/icons-material';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Grid, IconButton, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
-import { createRecipe, getCategories } from '../redux/actions';
+import { useSelector, useDispatch } from 'react-redux';
+import { RecipeModel } from '../models';
+import { getCategories, updateRecipe } from '../redux/actions';
 import { RootState } from '../redux/store';
 // @ts-ignore
 import FileBase from 'react-file-base64';
 
-const CreateRecipeDialog = () => {
+const UpdateRecipeDialog = ({ recipe }: { recipe: RecipeModel }) => {
+
+    const { name, body, image, duration, tip } = recipe
 
     const [state, setState] = useState(
         {
             open: false,
             recipe: {
-                name: '',
-                image: '',
-                body: '',
-                category: {},
-                duration: '',
-                tip: ''
+                name,
+                image,
+                body,
+                duration,
+                tip,
+                category: ''
             }
         }
     );
@@ -35,42 +38,41 @@ const CreateRecipeDialog = () => {
         setState({ ...state, open: !state.open});
     };
 
-    const onSubmit = (e: any) => {
-        e.preventDefault();
-        dispatch(createRecipe(state.recipe));
+    const onSubmit = () => {
+        dispatch(updateRecipe(recipe._id, state.recipe));
     };
-    
+
     return (
         <div>
             <IconButton onClick={onOpen}>
-                <Add/>
+                <Edit />
             </IconButton>
             <Dialog open={state.open} onClose={onOpen}>
-                <DialogTitle>{t('recipes.create.title')}</DialogTitle>
+                <DialogTitle>{t('recipe.update.title', { recipe: recipe.name })}</DialogTitle>
                 <DialogContent>
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
-                            <TextField type='text' label={t('recipes.fields.name')} onChange={(e) => setState({ ...state, recipe: { ...state.recipe, name: e.target.value }})}/>
+                            <TextField type='text' label={t('recipes.fields.name')} value={state.recipe.name} onChange={(e: any) => setState({ ...state, recipe: { ...state.recipe, name: e.target.value }})}/>
                         </Grid>
                         <Grid item xs={12}>
                             <InputLabel>{t('recipes.fields.image')}</InputLabel>
                             <FileBase label={t('recipes.fields.image')} type='file' multiple={false} onDone={({ base64 }: { base64: any }) => setState({ ...state, recipe: { ...state.recipe, image: base64 } })}/>
                         </Grid>
                         <Grid item xs={12}>
-                            <TextField type='text' label={t('recipes.fields.body')} multiline onChange={(e) => setState({ ...state, recipe: { ...state.recipe, body: e.target.value }})}/>
+                            <TextField type='text' label={t('recipes.fields.body')} value={state.recipe.body} multiline onChange={(e: any) => setState({ ...state, recipe: { ...state.recipe, body: e.target.value }})}/>
                         </Grid>
                         <Grid item xs={12}>
-                            <Select label={t('recipes.fields.category')} onChange={(e) => setState({ ...state, recipe: { ...state.recipe, category: String(e.target.value) } })}>
+                            <Select fullWidth label={t('recipes.fields.category')} onChange={(e: any) => setState({ ...state, recipe: { ...state.recipe, category: String(e.target.value) } })}>
                                 {categories.map((category) => (
                                     <MenuItem key={category._id} value={category._id}>{category.name}</MenuItem>
                                 ))}
                             </Select>
                         </Grid>
                         <Grid item xs={12}>
-                            <TextField type='text' label={t('recipes.fields.duration')} onChange={(e) => setState({ ...state, recipe: { ...state.recipe, duration: e.target.value }})}/>
+                            <TextField type='text' value={state.recipe.duration} label={t('recipes.fields.duration')} onChange={(e) => setState({ ...state, recipe: { ...state.recipe, duration: e.target.value }})}/>
                         </Grid>
                         <Grid item xs={12}>
-                            <TextField type='text' label={t('recipes.fields.tip')}  multiline onChange={(e) => setState({ ...state, recipe: { ...state.recipe, tip: e.target.value }})}/>
+                            <TextField type='text' value={state.recipe.tip} label={t('recipes.fields.tip')}  multiline onChange={(e) => setState({ ...state, recipe: { ...state.recipe, tip: e.target.value }})}/>
                         </Grid>
                     </Grid>
                 </DialogContent>
@@ -83,4 +85,4 @@ const CreateRecipeDialog = () => {
     );
 };
 
-export default CreateRecipeDialog;
+export default UpdateRecipeDialog;

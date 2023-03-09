@@ -1,6 +1,7 @@
 import { Avatar, Divider, Grid, List, ListItem, ListItemAvatar, ListItemText, Typography } from '@mui/material';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { getRecipes } from '../redux/actions';
 import { RootState } from '../redux/store';
 import LikeAction from './LikeAction';
@@ -9,6 +10,7 @@ const RecipeList = () => {
 
     const { recipes } = useSelector((state: RootState) => state);
     const dispatch = useDispatch<any>();
+    const navigate = useNavigate();
 
     useEffect(() => {
         dispatch(getRecipes());
@@ -28,6 +30,7 @@ const RecipeList = () => {
                             <Avatar alt={recipe.name} src={recipe.image}/>
                         </ListItemAvatar>
                         <ListItemText
+                            onClick={() => navigate(`/${recipe._id}`)}
                             primary={recipe.name}
                             secondary={
                             <Grid container spacing={3}>

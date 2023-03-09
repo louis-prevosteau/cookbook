@@ -15,12 +15,14 @@ import { UpdateRecipeDto } from './dto/update-recipe.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { User } from 'src/user/user.decorator';
 import { UsersService } from 'src/users/users.service';
+import { IngredientsService } from 'src/ingredients/ingredients.service';
 
 @Controller('recipes')
 export class RecipesController {
   constructor(
     private readonly recipesService: RecipesService,
     private readonly usersService: UsersService,
+    private readonly ingredientsService: IngredientsService,
   ) {}
 
   @UseGuards(AuthGuard('jwt'))
@@ -50,7 +52,8 @@ export class RecipesController {
 
   @UseGuards(AuthGuard('jwt'))
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  async remove(@Param('id') id: string) {
+    await this.ingredientsService.removeAll({ recipe: id });
     return this.recipesService.remove({ _id: id });
   }
 

@@ -1,6 +1,6 @@
 import { Dispatch } from '@reduxjs/toolkit';
 import { CREATE_RECIPE, DELETE_RECIPE, GET_RECIPE, GET_RECIPES, UPDATE_RECIPE } from '../../constants/ActionsTypes';
-import { RecipeModel } from '../../models';
+import { CreateRecipeModel } from '../../models';
 import * as api from './../../api';
 
 export const getRecipes = (category = '') => async (dispatch: Dispatch) => {
@@ -23,7 +23,7 @@ export const getRecipe = (id: string) => async (dispatch: Dispatch) => {
     );
 };
 
-export const createRecipe = (recipeData: RecipeModel) => async (dispatch: Dispatch) => {
+export const createRecipe = (recipeData: CreateRecipeModel) => async (dispatch: Dispatch) => {
     const { data } = await api.createRecipe(recipeData);
     dispatch(
         {
@@ -33,7 +33,7 @@ export const createRecipe = (recipeData: RecipeModel) => async (dispatch: Dispat
     );
 };
 
-export const updateRecipe = (id: string, recipeData: RecipeModel) => async (dispatch: Dispatch) => {
+export const updateRecipe = (id: string, recipeData: CreateRecipeModel) => async (dispatch: Dispatch) => {
     const { data } = await api.updateRecipe(id, recipeData);;
     dispatch(
         {

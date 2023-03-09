@@ -1,7 +1,7 @@
 import { Dispatch } from "@reduxjs/toolkit";
 import * as api from '../../api';
 import { CREATE_INGREDIENT, DELETE_INGREDIENT, GET_INGREDIENTS, UPDATE_INGREDIENT } from "../../constants/ActionsTypes";
-import { IngredientModel } from "../../models";
+import { CreateIngredientModel, UpdateIngredientModel } from "../../models";
 
 export const getIngredients = (recipe: string) => async (dispatch: Dispatch) => {
     const { data } = await api.getIngredients(recipe);
@@ -13,7 +13,7 @@ export const getIngredients = (recipe: string) => async (dispatch: Dispatch) => 
     );
 };
 
-export const createIngredient = (ingredientData: IngredientModel) => async (dispatch: Dispatch) => {
+export const createIngredient = (ingredientData: CreateIngredientModel) => async (dispatch: Dispatch) => {
     const { data } = await api.createIngredient(ingredientData);
     dispatch(
         {
@@ -23,7 +23,7 @@ export const createIngredient = (ingredientData: IngredientModel) => async (disp
     );
 };
 
-export const updateIngredient = (id: string, ingredientData: IngredientModel) => async (dispatch: Dispatch) => {
+export const updateIngredient = (id: string, ingredientData: UpdateIngredientModel) => async (dispatch: Dispatch) => {
     const { data } = await api.updateIngredient(id, ingredientData);
     dispatch(
         {

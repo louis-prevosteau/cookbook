@@ -17,7 +17,7 @@ export const RecipesReducer = (state: RecipeModel[] = [], action: AnyAction): Re
     }
 };
 
-export const RecipeReducer = (state: RecipeModel = {}, action: AnyAction): RecipeModel => {
+export const RecipeReducer = (state: RecipeModel = { _id: '', name: '', body: '', image: '', category: {}, duration: '' }, action: AnyAction): RecipeModel => {
     switch (action.type) {
         case GET_RECIPE:
             return action.payload;

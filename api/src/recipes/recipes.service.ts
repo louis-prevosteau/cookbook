@@ -42,6 +42,10 @@ export class RecipesService {
     return this.recipeModel.findOneAndDelete(filter);
   }
 
+  removeAll(filter) {
+    return this.recipeModel.deleteMany(filter);
+  }
+
   like(id, user) {
     return this.recipeModel
       .findOneAndUpdate({ _id: id }, { $push: { likes: user._id } })
